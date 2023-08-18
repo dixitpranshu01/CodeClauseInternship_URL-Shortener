@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>URL Shortener</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url('html/url-768x509.jpg');
+            backdrop-filter: blur(6px); // This be the blur
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+
+        #form-container {
+            text-align: center;
+            font-size: 36px; /* Adjust the font size as needed */
+            background-color: rgba(102, 204, 255, 0.3); /* Transparent white */
+            padding: 20px; /* Add some padding to the container */
+            border-radius: 10px; /* Add rounded corners */
+        }
+
+        #result {
+            display: none;
+            margin-top: 20px;
+            font-size: 18px; /* Adjust the font size as needed */
+        }
+
+        label, input[type="text"], input[type="submit"] {
+            font-size: 20px; /* Adjust the font size as needed */
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="form-container">
+    <h1>URL Shortener</h1>
+    <form id="shorten-form">
+        <label for="long_url">Long URL:</label><br>
+        <input type="text" id="long_url" name="long_url"><br><br>
+        <input type="submit" value="Shorten URL">
+    </form>
+
+    <p id="result"></p>
+</div>
+
+<script>
+    document.getElementById("shorten-form").addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const longUrl = document.getElementById("long_url").value;
+        const requestData = JSON.stringify({ "long_url": longUrl });
+
+        fetch("/shorten", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: requestData
+        })
+        .then(response => response.json())
+        .then(data => {
+            const resultElement = document.getElementById("result");
+            resultElement.innerText = `Short URL: ${data.short_url}`;
+            resultElement.style.display = "block";
+        })
+        .catch(error => {
+            console.error("Error:", error);
+        });
+    });
+</script>
+</body>
+</html>
