@@ -1,4 +1,4 @@
-# CodeClauseInternship_URL-Shortener
+# URL-Shortener
 
 1. Developed a URL Shortener web application using FastAPI framework to create short URLs from long URLs, enhancing user-friendliness and sharing ease.
 2. Implemented a hash-based approach to generate a consistent short URL for a given long URL using the MD5 hash function, ensuring the same long URL consistently produces the same short URL.
